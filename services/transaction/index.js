@@ -35,7 +35,6 @@ const resolvers = {
     },
     Account: {
         transactions(object) {
-            console.log('res', transactions.find(tx => (tx.from === object.address || tx.to === object.address)))
             return transactions.filter(tx => (tx.from === object.address || tx.to === object.address))
         },
         balance(object) {

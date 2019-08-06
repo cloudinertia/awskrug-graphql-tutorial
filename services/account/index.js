@@ -16,11 +16,9 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         me() {
-            console.log('touched account')
             return accounts[0];
         },
         getAccount(parent, {address}) {
-            console.log("addr", address)
             return accounts.find(account => account.address === address);
         }
     },

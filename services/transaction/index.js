@@ -28,7 +28,7 @@ const resolvers = {
         getTransaction(prev,{txid}) {
             return transactions.find(tx => tx.txid === txid);
         },
-        transactions() {
+        getTransactions() {
             return transactions;
         }
     },
@@ -38,7 +38,7 @@ const resolvers = {
         }
     },
     Account: {
-        transactions(object) {
+        myTransactions(object) {
             return transactions.filter(tx => (tx.from === object.address || tx.to === object.address))
         },
         balance(object) {

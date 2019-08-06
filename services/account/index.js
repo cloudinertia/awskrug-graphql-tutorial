@@ -17,7 +17,7 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        me() {
+        myAccount() {
             return accounts[0];
         },
         getAccount(parent, {address}) {

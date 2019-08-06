@@ -1,6 +1,8 @@
 const {ApolloServer, gql} = require("apollo-server");
 const {buildFederatedSchema} = require("@apollo/federation");
 
+// User 서비스
+
 const typeDefs = gql`
     extend type Query {
         myUser: User
@@ -9,11 +11,20 @@ const typeDefs = gql`
         address: String!
         name: String
     }
+    extend type Account @key(fields: "address") {
+        address: String! @external
+        user: User @requires(fields: "address")
+    }
 `
 
 const resolvers = {
     User: {
         __resolveReference({address}) {
+            return users.find(user => user.address === address);
+        }
+    },
+    Account: {
+        user({address}) {
             return users.find(user => user.address === address);
         }
     }

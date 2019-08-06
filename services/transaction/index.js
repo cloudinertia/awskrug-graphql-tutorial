@@ -1,6 +1,10 @@
 const {ApolloServer, gql} = require("apollo-server");
 const {buildFederatedSchema} = require("@apollo/federation");
 
+// transaction 서비스
+// transaction 관련된 정보가 있다.
+// Account 서비스에서 제공되는 기능에 balance와 transactions를 더했다.
+
 const typeDefs = gql`
     extend type Query {
         transactions: [Transaction]

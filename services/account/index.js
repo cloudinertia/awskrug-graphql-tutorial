@@ -5,11 +5,13 @@ const {buildFederatedSchema} = require("@apollo/federation");
 //
 const typeDefs = gql`
     extend type Query {
-        me: Account
+        myAccount: Account
         getAccount(address: String!): Account
     }
     type Account @key(fields: "address"){
         address: String!
+        name: String
+        blockchain: String
     }
 `
 
@@ -24,11 +26,8 @@ const resolvers = {
     },
     Account: {
         __resolveReference(object) {
-            return address.find(account => account.address === object.address);
-        },
-        // user(object) {
-        //     return {__typename: "User", address: object.address}
-        // }
+            return accounts.find(account => account.address === object.address);
+        }
     }
 }
 
@@ -49,8 +48,12 @@ server.listen({port: 4001}).then(({url}) => {
 const accounts = [
     {
         address: "0x111",
+        blockchain: "eth",
+        name:"awskrug"
     },
     {
         address: "0x222",
+        blockchain: "eth",
+        name:"graphql"
     }
 ]

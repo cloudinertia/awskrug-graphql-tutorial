@@ -7,7 +7,8 @@ const {buildFederatedSchema} = require("@apollo/federation");
 
 const typeDefs = gql`
     extend type Query {
-        transactions: [Transaction]
+        getTransaction(txid:ID): Transaction
+        getTransactions: [Transaction]
     }
     type Transaction @key(fields: "txid") {
         txid: ID!
@@ -18,12 +19,15 @@ const typeDefs = gql`
     extend type Account @key(fields: "address"){
         address: String! @external
         balance: Int @requires(fields: "address")
-        transactions: [Transaction] @requires(fields: "address")
+        myTransactions: [Transaction] @requires(fields: "address")
     }
 `
 
 const resolvers = {
     Query: {
+        getTransaction(prev,{txid}) {
+            return transactions.find(tx => tx.txid === txid);
+        },
         transactions() {
             return transactions;
         }

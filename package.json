@@ -5,7 +5,6 @@
     "start-gateway": "nodemon gateway.js",
     "start-service-account": "nodemon services/account/index.js",
     "start-service-transaction": "nodemon services/transaction/index.js",
-      "start-service-user": "nodemon services/user/index.js",
     "start-services": "concurrently \"npm:start-service-*\"",
     "postinstall": "lerna bootstrap"
   },
